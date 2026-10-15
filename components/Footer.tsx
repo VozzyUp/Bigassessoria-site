@@ -12,7 +12,7 @@ export function Footer() {
           </p>
         </div>
         <div>
-          <h4>Produtos</h4>
+          <h3>Produtos</h3>
           <ul>
             <li><Link href="/credito-com-garantia-de-imovel">Home equity</Link></li>
             <li><Link href="/financiamento-imobiliario">Financiamento imobiliário</Link></li>
@@ -21,7 +21,7 @@ export function Footer() {
           </ul>
         </div>
         <div>
-          <h4>Institucional</h4>
+          <h3>Institucional</h3>
           <ul>
             <li><Link href="/sobre">Sobre</Link></li>
             <li><Link href="/blog">Blog</Link></li>
@@ -30,7 +30,7 @@ export function Footer() {
           </ul>
         </div>
         <div>
-          <h4>Atendimento</h4>
+          <h3>Atendimento</h3>
           <ul>
             <li>Ijuí/RS · Porto Alegre/RS · Joinville/SC</li>
             <li>MG, SP, MS, MT, PR, SC, RS, RJ e ES</li>

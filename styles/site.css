@@ -28,7 +28,7 @@ a{color:inherit}
 .logo svg{width:40px;height:40px;flex:none}
 .logo .w{display:flex;flex-direction:column;line-height:1}
 .logo .w b{font:italic 800 26px/0.9 var(--display);letter-spacing:-.02em}
-.logo .w span{font:italic 700 13px/1 var(--display);color:var(--brand-grey);letter-spacing:.01em}
+.logo .w span{font:italic 700 13px/1 var(--display);color:var(--text-muted);letter-spacing:.01em}
 .nav{display:flex;gap:22px;margin-left:auto}
 .nav a{text-decoration:none;font:500 15px/20px var(--sans);color:var(--text-muted);padding:6px 0;border-bottom:2px solid transparent}
 .nav a:hover{color:var(--text)}
@@ -138,7 +138,7 @@ a{color:inherit}
 .footer .wrap{padding-block:48px;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:32px}
 .footer p,.footer li{color:var(--dark-text-muted);font-size:14px;line-height:22px}
 .footer ul{list-style:none;padding:0;margin:10px 0 0;display:grid;gap:6px}
-.footer h4{font:700 14px var(--sans);color:var(--dark-text)}
+.footer h3{font:700 14px var(--sans);color:var(--dark-text)}
 .footer .logo{color:var(--dark-text)}
 .footer .logo .w span{color:var(--dark-text-muted)}
 .footer .bottom{grid-column:1/-1;border-top:1px solid var(--dark-border);padding-top:20px;font-size:12px;line-height:18px;color:var(--dark-text-muted)}

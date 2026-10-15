@@ -15,9 +15,9 @@ export function Header({ ativo }: { ativo?: string }) {
     <header className="header">
       <a className="skip" href="#conteudo">Pular para o conteúdo</a>
       <div className="wrap">
-        <Link className="logo" href="/" aria-label="Big Assessoria, página inicial">
+        <Link className="logo" href="/">
           <MarcaBig />
-          <span className="w"><b>BIG</b><span>assessoria</span></span>
+          <span className="w"><b>BIG</b>{' '}<span>assessoria</span></span><span className="sr-only">, página inicial</span>
         </Link>
         <nav className="nav" aria-label="Principal">
           {LINKS.map((l) => (

@@ -50,3 +50,14 @@ nas páginas públicas; rate limit, consentimento e guardas de gestor conferidos
 
 **Nunca executado de ponta a ponta** (faltam chaves e a UAZAPI): gravação de lead, webhook, envio de código, upload de documento,
 conversões, agente de IA e alertas. O primeiro teste real é a subida no Portainer.
+
+## Medições (2026-10-15, localhost, build de produção)
+
+- Lighthouse mobile na home: acessibilidade 100, boas práticas 100, SEO 100 (corrigidos contraste do subtítulo do logo, ordem dos títulos do rodapé e nome acessível do link do logo).
+- Traço de desempenho (celular 390 px, 4G rápido, CPU 4x mais lenta): LCP 578 ms, CLS 0,00. Na VPS soma-se a latência real da rede: medir de novo com o domínio no ar.
+- 79 testes automáticos passando; tipos, lint e build limpos.
+
+## Novidades desta rodada
+
+Funil com arrastar e soltar; calculadora "quanto posso financiar"; retomar a última simulação; campo de melhor horário;
+depoimentos com cadastro, autorização e publicação; importação de gasto da Meta e do Google (precisa das credenciais).
