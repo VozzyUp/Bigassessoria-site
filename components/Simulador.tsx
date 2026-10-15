@@ -81,6 +81,10 @@ export function Simulador({ produtoInicial = 'home_equity', config = CONFIG_PADR
   const [whats, setWhats] = useState('')
   const [email, setEmail] = useState('')
   const [uf, setUf] = useState('')
+  const [cidade, setCidade] = useState('')
+  const [situacao, setSituacao] = useState('')
+  const [finalidade, setFinalidade] = useState('')
+  const [urgencia, setUrgencia] = useState('')
   const [consent, setConsent] = useState(false)
   const [marketing, setMarketing] = useState(false)
   const [enviando, setEnviando] = useState(false)
@@ -118,6 +122,10 @@ export function Simulador({ produtoInicial = 'home_equity', config = CONFIG_PADR
           marketing,
           consentimentoAnuncios: !!lerEscolha()?.marketing,
           uf: uf === 'OUTRO' ? 'XX' : uf,
+          cidade: cidade.trim() || undefined,
+          situacaoImovel: situacao || undefined,
+          finalidade: finalidade || undefined,
+          urgencia: urgencia || undefined,
           simulacao: {
             produto,
             valorImovelCentavos: imovel * 100,
@@ -242,6 +250,50 @@ export function Simulador({ produtoInicial = 'home_equity', config = CONFIG_PADR
                   <option value="">Selecione</option>
                   {UFS.map((u) => <option key={u} value={u}>{u}</option>)}
                   <option value="OUTRO">Outro estado</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div className="row2">
+            <div className="field">
+              <label htmlFor="c-cid">Cidade do imóvel</label>
+              <div className="money"><input id="c-cid" autoComplete="address-level2" value={cidade} onChange={(e) => setCidade(e.target.value)} /></div>
+            </div>
+            <div className="field">
+              <label htmlFor="c-sit">O imóvel está</label>
+              <div className="money">
+                <select id="c-sit" value={situacao} onChange={(e) => setSituacao(e.target.value)}>
+                  <option value="">Selecione</option>
+                  <option value="quitado">Quitado</option>
+                  <option value="financiado">Financiado</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div className="row2">
+            <div className="field">
+              <label htmlFor="c-fin">Para que vai usar</label>
+              <div className="money">
+                <select id="c-fin" value={finalidade} onChange={(e) => setFinalidade(e.target.value)}>
+                  <option value="">Selecione</option>
+                  <option value="capital_giro">Capital de giro</option>
+                  <option value="expandir_empresa">Expandir a empresa</option>
+                  <option value="quitar_dividas">Quitar dívidas</option>
+                  <option value="reforma_construcao">Reforma ou construção</option>
+                  <option value="comprar_imovel">Comprar um imóvel</option>
+                  <option value="outra">Outra finalidade</option>
+                </select>
+              </div>
+            </div>
+            <div className="field">
+              <label htmlFor="c-urg">Quando precisa</label>
+              <div className="money">
+                <select id="c-urg" value={urgencia} onChange={(e) => setUrgencia(e.target.value)}>
+                  <option value="">Selecione</option>
+                  <option value="30d">Em até 30 dias</option>
+                  <option value="1-3m">De 1 a 3 meses</option>
+                  <option value="3-6m">De 3 a 6 meses</option>
+                  <option value="planejando">Ainda estou planejando</option>
                 </select>
               </div>
             </div>

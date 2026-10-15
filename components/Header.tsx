@@ -6,6 +6,7 @@ const LINKS = [
   { href: '/financiamento-imobiliario', rotulo: 'Financiamento' },
   { href: '/portabilidade-de-financiamento', rotulo: 'Portabilidade' },
   { href: '/#como', rotulo: 'Como funciona' },
+  { href: '/blog', rotulo: 'Blog' },
   { href: '/sobre', rotulo: 'Sobre' },
 ]
 

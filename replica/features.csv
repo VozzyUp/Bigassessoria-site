@@ -1,80 +1,80 @@
 feature,area,priority,original,clone,notes
-Header com nav e CTA principal sempre visível,layout,must,yes,yes,"sticky no mobile"
+Header com nav e CTA principal sempre visível,layout,must,yes,yes,sticky no mobile
 Hero com proposta clara e 2 CTAs,home,must,yes,yes,
-Seletor de intenção (o que você quer fazer),home,must,yes,no,clone: home equity / comprar imóvel / portabilidade / falar com consultor
+Seletor de intenção (o que você quer fazer),home,must,yes,yes,clone: home equity / comprar imóvel / portabilidade / falar com consultor; cards dos 3 caminhos na home
 Seção de método em etapas,home,must,yes,yes,
-FAQ,conteúdo,must,yes,no,clone: accordion + schema FAQPage
-Aviso legal no rodapé e no simulador,legal,must,yes,yes,"sem promessa de aprovação"
+FAQ,conteúdo,must,yes,yes,clone: accordion + schema FAQPage; accordion + FAQPage
+Aviso legal no rodapé e no simulador,legal,must,yes,yes,sem promessa de aprovação
 Simulador de home equity com resultado ao vivo,simulador,must,yes,yes,"Price; taxa vinda do cliente; testado: R$ 6.319,54"
 Indicador de LTV (crédito / imóvel),simulador,must,yes,yes,
-Limite de crédito por produto e LTV máximo,simulador,must,yes,yes,"home equity 60% / financiamento 80%; crédito de R$ 100 mil a R$ 10 milhões; 60% / 80% / R$ 10 mi"
-Imóvel quitado ou financiado com saldo devedor,simulador,must,yes,no,
-Prazo em chips 60 / 120 / 180 / 240 meses (configurável),simulador,must,yes,partial,"referência: concorrente; 120/180/240; faltou 60"
-Finalidade do crédito e urgência,simulador,must,yes,no,qualificação do lead
-UF e cidade em cascata,simulador,must,yes,no,clone: só MG SP MS MT PR SC RS RJ ES
-Lead fora da região capturado com aviso,simulador,must,no,no,não descartar: marcar fora_regiao
-Taxa "a partir de" configurável sem deploy,simulador,must,no,no,menor taxa real de um parceiro + aviso de simulação
-Timeline do processo (diagnóstico a liberação),conteúdo,must,yes,no,
-Mensagem pré-preenchida no WhatsApp com resumo,conversão,must,yes,no,
-Lead gravado no banco antes de abrir o WhatsApp,conversão,must,no,partial,"a ZAFF perde o lead se a aba fechar; código pronto; falta a chave service role para testar de ponta a ponta"
-Captura de UTM / gclid / fbclid / landing page,conversão,must,no,partial,"coleta e API prontas; falta teste com tráfego real"
-Notificação do lead para o consultor (WhatsApp/e-mail),conversão,must,no,no,
-Página de obrigado com próximos passos,conversão,must,no,partial,"dispara a conversão; sem evento de conversão ainda"
+Limite de crédito por produto e LTV máximo,simulador,must,yes,yes,home equity 60% / financiamento 80%; crédito de R$ 100 mil a R$ 10 milhões; 60% / 80% / R$ 10 mi
+Imóvel quitado ou financiado com saldo devedor,simulador,must,yes,yes,"campo ""o imóvel está"" depois do resultado; saldo devedor fica com o especialista"
+Prazo em chips 60 / 120 / 180 / 240 meses (configurável),simulador,must,yes,partial,referência: concorrente; 120/180/240; faltou 60
+Finalidade do crédito e urgência,simulador,must,yes,yes,depois do resultado
+UF e cidade em cascata,simulador,must,yes,partial,estado em lista e cidade em texto; sem lista de cidades
+Lead fora da região capturado com aviso,simulador,must,no,yes,marca fora_regiao e avisa na página de obrigado
+"Taxa ""a partir de"" configurável sem deploy",simulador,must,no,yes,Painel > Configurações; o site atualiza em até 5 min
+Timeline do processo (diagnóstico a liberação),conteúdo,must,yes,yes,"seção ""Como funciona"""
+Mensagem pré-preenchida no WhatsApp com resumo,conversão,must,yes,yes,montada na API com o valor e o prazo da simulação
+Lead gravado no banco antes de abrir o WhatsApp,conversão,must,no,partial,a ZAFF perde o lead se a aba fechar; código pronto; falta a chave service role para testar de ponta a ponta; código pronto; testar com a chave service_role
+Captura de UTM / gclid / fbclid / landing page,conversão,must,no,partial,coleta e API prontas; falta teste com tráfego real
+Notificação do lead para o consultor (WhatsApp/e-mail),conversão,must,no,partial,alerta por WhatsApp ao vendedor; falta teste real
+Página de obrigado com próximos passos,conversão,must,no,yes,dispara a conversão; sem evento de conversão ainda; evento generate_lead disparado
 Botão flutuante de WhatsApp,conversão,must,no,yes,
-Máscara e validação (moeda e telefone),simulador,must,unknown,no,
-Simulador em etapas com contato depois do resultado,simulador,must,no,no,aumenta a conclusão
-Página de home equity (SEO),seo,must,no,partial,"palavra-chave principal; base pronta; falta conteúdo e JSON-LD"
-Página de financiamento imobiliário (compra),seo,must,no,partial,"base pronta; falta conteúdo"
-Metadados por página (title/description/OG),seo,must,unknown,no,
-JSON-LD: FinancialService/LocalBusiness/FAQPage/BreadcrumbList,seo,must,no,no,
+Máscara e validação (moeda e telefone),simulador,must,unknown,yes,"moeda, telefone e CPF"
+Simulador em etapas com contato depois do resultado,simulador,must,no,yes,aumenta a conclusão; contato depois do resultado
+Página de home equity (SEO),seo,must,no,yes,palavra-chave principal; base pronta; falta conteúdo e JSON-LD
+Página de financiamento imobiliário (compra),seo,must,no,yes,base pronta; falta conteúdo
+Metadados por página (title/description/OG),seo,must,unknown,yes,
+JSON-LD: FinancialService/LocalBusiness/FAQPage/BreadcrumbList,seo,must,no,yes,"FinancialService, WebSite, FAQPage, Article, BreadcrumbList"
 Sitemap.xml e robots.txt,seo,must,unknown,yes,
-Core Web Vitals verdes (LCP < 2.5s no mobile),performance,must,unknown,no,SSG/ISR + imagens otimizadas
-Banner de cookies e consentimento LGPD,legal,must,no,no,Consent Mode v2
-Política de privacidade e termos,legal,must,no,no,
-GA4 + Google Ads + Meta Pixel com eventos de conversão,analytics,must,no,no,via GTM
-Acesso aos documentos por código de 6 dígitos enviado no WhatsApp,documentos,must,no,no,decisão do cliente; substitui o link individual da ZAFF
-Código com hash + expiração 24h + 5 tentativas + rate limit por IP,documentos,must,no,no,
-Reenviar / revogar código (cliente e consultor),documentos,must,no,no,
-Completar dados cadastrais (CPF / estado civil / endereço / imóvel),documentos,must,no,no,
-Upload com progresso e checklist por item,documentos,must,unknown,no,PDF JPG PNG HEIC até 10 MB; retomar no 4G
-Arquivos em bucket privado com URL assinada,documentos,must,no,no,
-Consultor aprova ou rejeita documento com motivo e aviso no WhatsApp,documentos,must,no,no,subiu: faz parte do painel
-Log de auditoria de acesso e ações,documentos,must,no,no,subiu: LGPD com dados sensíveis
-Webhook UAZAPI multi-instância idempotente (um número por vendedor),whatsapp,must,no,partial,"dedupe por message_id; falta conferir o formato na documentação da instância"
-Captar mensagens enviadas pelo celular do vendedor (fromMe),whatsapp,must,no,partial,"depende do formato do webhook"
-Gravar só conversas de leads; descartar grupos e contatos pessoais,whatsapp,must,no,yes,"LGPD; regra implementada em processar.ts"
-Mídia: áudio transcrito / imagens / PDFs anexados ao lead,whatsapp,must,no,no,
-Tela de conexões com status e QR code + alerta de desconexão,whatsapp,must,no,no,
-Envio de mensagens pela UAZAPI (código / avisos / resposta pelo painel),whatsapp,must,no,no,
-Login do painel com papéis vendedor / gestor,painel,must,no,partial,"vendedor vê só os seus leads; login e proteção prontos; falta criar usuários"
-Inbox de conversas com filtros e resposta pelo painel,painel,must,no,partial,"lista pronta; falta responder pelo painel"
-Ficha única do lead (conversa / simulações / documentos / timeline),painel,must,no,no,
-Funil kanban com etapas fixas e motivo de perda obrigatório,painel,must,no,no,
-IA classifica etapa / temperatura / resumo / próximo passo,painel,must,no,no,Claude Haiku; correção humana vence
-Dashboard por canal / campanha / vendedor / etapa,painel,must,no,no,
-Tempo de primeira resposta e conversão por vendedor,painel,must,no,no,
-Alertas: lead quente sem resposta / parado em etapa / conexão caiu,painel,must,no,no,via WhatsApp do vendedor
-Configurações: taxa / LTV / prazos / UFs / checklist / vendedores,painel,must,no,no,
-Links rastreáveis /w/[canal] com mensagem marcada,rastreamento,must,no,yes,"Instagram / Facebook / GMN / parceiros; 5 canais criados"
-Conversões offline do funil para Google Ads (gclid / enhanced conversions),rastreamento,must,no,no,otimizar por lead qualificado e proposta
-Conversões do funil para Meta Conversions API com deduplicação,rastreamento,must,no,no,
-Custo por lead / lead qualificado / proposta / contrato (CAC),rastreamento,must,no,no,gasto importado ou digitado
-Página de parceiros,conteúdo,must,yes,no,clone: bancos/instituições parceiras da Big
-Página de portabilidade / refinanciamento,seo,must,no,partial,"base pronta; falta conteúdo"
-Comparativo Price x SAC e CET estimado,simulador,must,no,no,
-Simulador modo compra (entrada / renda / idade),simulador,must,no,no,
-Prova social: avaliações Google e depoimentos,confiança,must,no,no,só reais e autorizados
-Números de autoridade (operações / volume / anos),confiança,must,no,no,"desde 2015 (CNPJ); demais só se verificáveis"
-Página Sobre com equipe e CNPJ (E-E-A-T),confiança,must,no,no,
-Blog com artigos,seo,must,no,no,
-Simulador embutido nos artigos,seo,must,no,no,
-Página de contato com mapa / Google Business,seo,must,no,no,
+Core Web Vitals verdes (LCP < 2.5s no mobile),performance,must,unknown,partial,SSG/ISR + imagens otimizadas; páginas estáticas; medir com Lighthouse em produção
+Banner de cookies e consentimento LGPD,legal,must,no,yes,Consent Mode v2
+Política de privacidade e termos,legal,must,no,partial,rascunho: revisão jurídica pendente
+GA4 + Google Ads + Meta Pixel com eventos de conversão,analytics,must,no,partial,via GTM; eventos prontos; falta criar o container e as tags no GTM
+Acesso aos documentos por código de 6 dígitos enviado no WhatsApp,documentos,must,no,yes,decisão do cliente; substitui o link individual da ZAFF
+Código com hash + expiração 24h + 5 tentativas + rate limit por IP,documentos,must,no,yes,HMAC + 24h + 5 tentativas + limite por IP
+Reenviar / revogar código (cliente e consultor),documentos,must,no,yes,
+Completar dados cadastrais (CPF / estado civil / endereço / imóvel),documentos,must,no,yes,CPF validado
+Upload com progresso e checklist por item,documentos,must,unknown,partial,PDF JPG PNG HEIC até 10 MB; retomar no 4G; sem barra de %; estado por item
+Arquivos em bucket privado com URL assinada,documentos,must,no,yes,
+Consultor aprova ou rejeita documento com motivo e aviso no WhatsApp,documentos,must,no,yes,subiu: faz parte do painel; avisa o cliente pelo WhatsApp
+Log de auditoria de acesso e ações,documentos,must,no,yes,subiu: LGPD com dados sensíveis
+Webhook UAZAPI multi-instância idempotente (um número por vendedor),whatsapp,must,no,partial,dedupe por message_id; falta conferir o formato na documentação da instância; conferir formato real do payload
+Captar mensagens enviadas pelo celular do vendedor (fromMe),whatsapp,must,no,partial,depende do formato do webhook; depende do payload
+Gravar só conversas de leads; descartar grupos e contatos pessoais,whatsapp,must,no,yes,LGPD; regra implementada em processar.ts
+Mídia: áudio transcrito / imagens / PDFs anexados ao lead,whatsapp,must,no,no,transcrição e download de mídia não implementados
+Tela de conexões com status e QR code + alerta de desconexão,whatsapp,must,no,partial,cadastro e estado; QR code é lido no painel da UAZAPI
+Envio de mensagens pela UAZAPI (código / avisos / resposta pelo painel),whatsapp,must,no,yes,"código, avisos e resposta pelo painel"
+Login do painel com papéis vendedor / gestor,painel,must,no,yes,vendedor vê só os seus leads; login e proteção prontos; falta criar usuários
+Inbox de conversas com filtros e resposta pelo painel,painel,must,no,yes,lista pronta; falta responder pelo painel; lista + ficha com resposta; sem tempo real
+Ficha única do lead (conversa / simulações / documentos / timeline),painel,must,no,yes,
+Funil kanban com etapas fixas e motivo de perda obrigatório,painel,must,no,partial,colunas e mover por seletor; sem arrastar e soltar
+IA classifica etapa / temperatura / resumo / próximo passo,painel,must,no,yes,Claude Haiku; correção humana vence; Haiku; decisão humana vence
+Dashboard por canal / campanha / vendedor / etapa,painel,must,no,yes,
+Tempo de primeira resposta e conversão por vendedor,painel,must,no,yes,
+Alertas: lead quente sem resposta / parado em etapa / conexão caiu,painel,must,no,yes,via WhatsApp do vendedor; WhatsApp ao vendedor e gestor
+Configurações: taxa / LTV / prazos / UFs / checklist / vendedores,painel,must,no,yes,"taxa, percentuais, prazos, estados, agente"
+Links rastreáveis /w/[canal] com mensagem marcada,rastreamento,must,no,yes,Instagram / Facebook / GMN / parceiros; 5 canais criados
+Conversões offline do funil para Google Ads (gclid / enhanced conversions),rastreamento,must,no,partial,otimizar por lead qualificado e proposta; cliente da API pronto; precisa do developer token
+Conversões do funil para Meta Conversions API com deduplicação,rastreamento,must,no,yes,CAPI com deduplicação; testar com META_TEST_EVENT_CODE
+Custo por lead / lead qualificado / proposta / contrato (CAC),rastreamento,must,no,yes,gasto importado ou digitado; gasto digitado no painel
+Página de parceiros,conteúdo,must,yes,no,clone: bancos/instituições parceiras da Big; depende da autorização dos bancos
+Página de portabilidade / refinanciamento,seo,must,no,yes,base pronta; falta conteúdo
+Comparativo Price x SAC e CET estimado,simulador,must,no,yes,sem CET
+Simulador modo compra (entrada / renda / idade),simulador,must,no,partial,só o limite de 80%; sem entrada/renda/idade
+Prova social: avaliações Google e depoimentos,confiança,must,no,no,só reais e autorizados; sem depoimentos reais ainda
+Números de autoridade (operações / volume / anos),confiança,must,no,partial,"desde 2015 (CNPJ); demais só se verificáveis; ""desde 2015"" e 9 estados"
+Página Sobre com equipe e CNPJ (E-E-A-T),confiança,must,no,yes,
+Blog com artigos,seo,must,no,yes,4 artigos em rascunho para revisão
+Simulador embutido nos artigos,seo,must,no,partial,link para o simulador
+Página de contato com mapa / Google Business,seo,must,no,yes,
 Agendamento de ligação com consultor,conversão,must,no,no,Cal.com ou similar
-Página 404 com CTA,layout,must,no,no,
-Importação automática do gasto via API do Google Ads / Meta,rastreamento,must,no,no,senão digitar o gasto no painel
+Página 404 com CTA,layout,must,no,yes,
+Importação automática do gasto via API do Google Ads / Meta,rastreamento,must,no,no,senão digitar o gasto no painel; lançamento manual no painel
 Páginas por cidade (SEO local),seo,could,no,no,só com conteúdo real por cidade; revisar após a entrega
 Retomar simulação salva (link / e-mail),simulador,must,no,no,
-Agente de IA no WhatsApp: atendimento inicial e qualificação,conversão,must,no,no,liga/desliga global + por vendedor + por conversa; pausa quando o humano responde; passa para o vendedor
+Agente de IA no WhatsApp: atendimento inicial e qualificação,conversão,must,no,yes,desligado por padrão; liga por número e geral
 Calculadora de capacidade (quanto posso financiar pela renda),simulador,must,no,no,
 Materiais gratuitos (guia PDF) para captar e-mail,conteúdo,could,no,no,revisar após a entrega
 Sequência de e-mail / WhatsApp de nutrição,crm,could,no,no,revisar após a entrega
@@ -86,9 +86,9 @@ Venda / aquisição reservada de imóveis,escopo,skip,yes,skip,não é o negóci
 IoTrust e VB Contabilidade,escopo,skip,yes,skip,parceiros da ZAFF
 Fotos / textos / marca da ZAFF,marca,skip,yes,skip,clean-room: identidade própria
 Aprovação de crédito automática,crédito,skip,no,skip,decisão da instituição financeira
-Agente de IA: base de conhecimento editável no painel (produtos / taxa / regiões / documentos / FAQ),ia,must,no,no,o gestor ajusta sem deploy
-Agente de IA: registro de cada resposta e motivo da transferência para humano,ia,must,no,no,auditoria e melhoria
-Agente de IA: horário de funcionamento e mensagem fora do horário,ia,must,no,no,
-"Escolha de taxa em chips (1,19 a 1,69) + campo livre com mínimo configurável",simulador,must,no,partial,"referência: concorrente; sem campo livre"
-Carência de 30 / 60 / 90 dias com juros capitalizados,simulador,must,no,yes,"confirmar a regra de cálculo com o cliente; regra a confirmar com o banco"
-Aviso de IPCA / seguros / tarifas fora da parcela,simulador,must,no,yes,"obrigatório: taxa exibida é + IPCA"
+Agente de IA: base de conhecimento editável no painel (produtos / taxa / regiões / documentos / FAQ),ia,must,no,yes,o gestor ajusta sem deploy
+Agente de IA: registro de cada resposta e motivo da transferência para humano,ia,must,no,yes,auditoria e melhoria
+Agente de IA: horário de funcionamento e mensagem fora do horário,ia,must,no,partial,o horário vai no contexto; sem mensagem automática separada
+"Escolha de taxa em chips (1,19 a 1,69) + campo livre com mínimo configurável",simulador,must,no,partial,referência: concorrente; sem campo livre
+Carência de 30 / 60 / 90 dias com juros capitalizados,simulador,must,no,yes,confirmar a regra de cálculo com o cliente; regra a confirmar com o banco
+Aviso de IPCA / seguros / tarifas fora da parcela,simulador,must,no,yes,obrigatório: taxa exibida é + IPCA

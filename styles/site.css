@@ -251,3 +251,9 @@ a{color:inherit}
 .tabela th{text-align:left;font:600 12px var(--sans);color:var(--text-muted);text-transform:uppercase;letter-spacing:.04em;padding:8px 10px;border-bottom:1px solid var(--border)}
 .tabela td{padding:10px;border-bottom:1px solid var(--border)}
 .grade-gasto{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;align-items:end;margin-top:10px}
+
+/* ---------- Artigos ---------- */
+.texto-artigo{margin-top:20px;font-size:17px;line-height:28px;color:var(--text)}
+.texto-artigo h2{font-size:22px;line-height:30px;color:var(--brand-strong);margin:28px 0 8px}
+.texto-artigo p{margin:0 0 14px}
+.texto-artigo ul{margin:0 0 14px;padding-left:22px;display:grid;gap:6px}

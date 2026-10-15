@@ -21,6 +21,15 @@ export function Footer() {
           </ul>
         </div>
         <div>
+          <h4>Institucional</h4>
+          <ul>
+            <li><Link href="/sobre">Sobre</Link></li>
+            <li><Link href="/blog">Blog</Link></li>
+            <li><Link href="/perguntas-frequentes">Perguntas frequentes</Link></li>
+            <li><Link href="/contato">Contato</Link></li>
+          </ul>
+        </div>
+        <div>
           <h4>Atendimento</h4>
           <ul>
             <li>Ijuí/RS · Porto Alegre/RS · Joinville/SC</li>
