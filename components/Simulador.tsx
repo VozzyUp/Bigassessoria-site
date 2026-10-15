@@ -2,7 +2,7 @@
 
 import { useId, useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { CONFIG_PADRAO, formatarBRL, formatarPercentual, simular, type Produto, type Sistema } from '@/lib/financeiro'
+import { CONFIG_PADRAO, formatarBRL, formatarPercentual, simular, type ConfigSimulador, type Produto, type Sistema } from '@/lib/financeiro'
 import { coletarAtribuicao } from '@/lib/atribuicao/cliente'
 import { paraE164 } from '@/lib/telefone'
 import { evento, lerEscolha } from '@/lib/medicao/consentimento'
@@ -65,15 +65,15 @@ function Grupo<T extends string | number>(props: {
   )
 }
 
-export function Simulador({ produtoInicial = 'home_equity' }: { produtoInicial?: ProdutoSim }) {
+export function Simulador({ produtoInicial = 'home_equity', config = CONFIG_PADRAO }: { produtoInicial?: ProdutoSim; config?: ConfigSimulador }) {
   const router = useRouter()
-  const cfg = CONFIG_PADRAO
+  const cfg = config
   const [produto, setProduto] = useState<ProdutoSim>(produtoInicial)
   const [imovel, setImovel] = useState(1_000_000)
   const [credito, setCredito] = useState(500_000)
   const [sistema, setSistema] = useState<Sistema>('price')
   const [taxa, setTaxa] = useState(cfg.taxa_min)
-  const [prazo, setPrazo] = useState(240)
+  const [prazo, setPrazo] = useState(cfg.prazos.includes(240) ? 240 : cfg.prazos[cfg.prazos.length - 1])
   const [carencia, setCarencia] = useState(30)
 
   const [abrirContato, setAbrirContato] = useState(false)
@@ -192,10 +192,10 @@ export function Simulador({ produtoInicial = 'home_equity' }: { produtoInicial?:
         rotulo={'Taxa mensal (a partir de ' + formatarPercentual(cfg.taxa_min) + ')'}
         valor={taxa}
         onChange={setTaxa}
-        opcoes={[0.0119, 0.0129, 0.0139, 0.0149, 0.0169].map((t) => ({ valor: t, rotulo: formatarPercentual(t) }))}
+        opcoes={cfg.taxas.map((t) => ({ valor: t, rotulo: formatarPercentual(t) }))}
       />
       <div className="row2">
-        <Grupo rotulo="Prazo" valor={prazo} onChange={setPrazo} opcoes={[120, 180, 240].map((p) => ({ valor: p, rotulo: String(p), legenda: 'meses' }))} />
+        <Grupo rotulo="Prazo" valor={prazo} onChange={setPrazo} opcoes={cfg.prazos.map((p) => ({ valor: p, rotulo: String(p), legenda: 'meses' }))} />
         <Grupo rotulo="Carência" valor={carencia} onChange={setCarencia} opcoes={cfg.carencias.map((c) => ({ valor: c, rotulo: String(c), legenda: 'dias' }))} />
       </div>
 

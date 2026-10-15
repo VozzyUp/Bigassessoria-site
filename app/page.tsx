@@ -1,5 +1,8 @@
 import { ProdutoPage } from '@/components/ProdutoPage'
 
+// a taxa e os limites vêm do painel: a página se atualiza sozinha a cada 5 minutos
+export const revalidate = 300
+
 export default function Home() {
   return (
     <ProdutoPage

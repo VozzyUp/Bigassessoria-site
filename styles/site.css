@@ -244,3 +244,10 @@ a{color:inherit}
 .doc-item input[type=file]{font-size:14px;max-width:100%}
 .grade2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
 @media (max-width:560px){.grade2{grid-template-columns:1fr}}
+
+/* ---------- Tabelas e KPIs do painel ---------- */
+.kpi{font:800 32px/1.1 var(--display);color:var(--brand-strong);margin-top:6px}
+.tabela{width:100%;border-collapse:collapse;font-size:14px;margin-top:8px}
+.tabela th{text-align:left;font:600 12px var(--sans);color:var(--text-muted);text-transform:uppercase;letter-spacing:.04em;padding:8px 10px;border-bottom:1px solid var(--border)}
+.tabela td{padding:10px;border-bottom:1px solid var(--border)}
+.grade-gasto{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;align-items:end;margin-top:10px}

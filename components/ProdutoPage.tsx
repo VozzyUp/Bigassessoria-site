@@ -5,6 +5,7 @@ import { Simulador } from './Simulador'
 import { TrustBar, Caminhos, ComoFunciona } from './SecoesHome'
 import { Icone } from './Icone'
 import { Faq } from './Faq'
+import { lerConfigSimulador } from '@/lib/config'
 
 export interface DadosProduto {
   rota: string
@@ -15,7 +16,8 @@ export interface DadosProduto {
   produto: 'home_equity' | 'financiamento'
 }
 
-export function ProdutoPage({ d }: { d: DadosProduto }) {
+export async function ProdutoPage({ d }: { d: DadosProduto }) {
+  const config = await lerConfigSimulador()
   return (
     <>
       <Header ativo={d.rota} />
@@ -36,7 +38,7 @@ export function ProdutoPage({ d }: { d: DadosProduto }) {
                 <a className="btn btn-secondary btn-lg" href="#como">Como funciona</a>
               </div>
             </div>
-            <Simulador produtoInicial={d.produto} />
+            <Simulador produtoInicial={d.produto} config={config} />
           </div>
         </section>
         <TrustBar />

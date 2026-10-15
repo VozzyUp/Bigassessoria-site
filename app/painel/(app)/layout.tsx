@@ -17,6 +17,15 @@ export default async function AppLayout({ children }: { children: React.ReactNod
         <nav aria-label="Painel">
           <Link href="/painel/conversas">Conversas</Link>
           <Link href="/painel/funil">Funil</Link>
+          <Link href="/painel/dashboard">Dashboard</Link>
+          {eu?.papel === 'gestor' ? (
+            <>
+              <Link href="/painel/agente">Agente de IA</Link>
+              <Link href="/painel/conexoes">Conexões</Link>
+              <Link href="/painel/configuracoes">Configurações</Link>
+              <Link href="/painel/equipe">Equipe</Link>
+            </>
+          ) : null}
         </nav>
         <div className="painel-eu">
           <span>{eu?.nome ?? auth.user.email}</span>

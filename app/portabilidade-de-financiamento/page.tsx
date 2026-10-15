@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   alternates: { canonical: '/portabilidade-de-financiamento' },
 }
 
+// a taxa e os limites vêm do painel: a página se atualiza sozinha a cada 5 minutos
+export const revalidate = 300
+
 export default function Page() {
   return (
     <ProdutoPage
