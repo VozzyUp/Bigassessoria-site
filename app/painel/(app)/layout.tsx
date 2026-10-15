@@ -31,6 +31,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
         <div className="painel-eu">
           <span>{eu?.nome ?? auth.user.email}</span>
           <small>{eu?.papel === 'gestor' ? 'Gestor' : eu?.papel === 'vendedor' ? 'Vendedor' : 'Sem perfil'}</small>
+          <Link href="/painel/senha">Minha senha</Link>
           <form action={sair}><button className="btn btn-ghost btn-sm" type="submit">Sair</button></form>
         </div>
       </aside>
