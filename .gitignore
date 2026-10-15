@@ -45,3 +45,6 @@ next-env.d.ts
 .env.local
 .env.*.local
 !.env.example
+
+# cópia preenchida da stack (segredos)
+deploy/stack.env
