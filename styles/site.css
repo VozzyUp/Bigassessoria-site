@@ -227,3 +227,20 @@ a{color:inherit}
 .b-ai{background:var(--bg);border:1.5px dashed var(--brand);margin-left:auto;border-top-right-radius:4px}
 .b-out{background:var(--brand-soft);margin-left:auto;border-top-right-radius:4px}
 .ai-tag{display:inline-block;font:700 10px/1 var(--sans);letter-spacing:.06em;background:var(--brand);color:var(--on-brand);padding:3px 6px;border-radius:5px;margin-right:6px;vertical-align:1px}
+
+/* ---------- Portal de documentos ---------- */
+.doc-form{display:grid;gap:16px}
+.tf{display:grid;gap:6px;min-width:0}
+.tf label{font:600 14px/20px var(--sans)}
+.tf input,.tf select,.tf textarea{height:48px;border:1.5px solid var(--border-input);border-radius:var(--r-md);padding:0 14px;font:400 16px var(--sans);color:var(--text);background:var(--bg);min-width:0;width:100%}
+.tf input:focus,.tf select:focus{outline:0;border-color:var(--focus);box-shadow:0 0 0 3px color-mix(in srgb,var(--focus) 20%,transparent)}
+.tf .msg{font-size:13px;color:var(--text-muted)}
+.aviso-ok{background:var(--success-soft);color:var(--success);padding:10px 14px;border-radius:var(--r-md)}
+.doc-itens{display:grid;gap:12px;list-style:none;padding:0;margin:0}
+.doc-item{background:var(--bg);border:1px solid var(--border);border-radius:var(--r-md);padding:14px 16px;display:grid;gap:8px}
+.doc-item header{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+.doc-item header b{font:700 15px var(--sans)}
+.doc-item .acoes{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.doc-item input[type=file]{font-size:14px;max-width:100%}
+.grade2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media (max-width:560px){.grade2{grid-template-columns:1fr}}
