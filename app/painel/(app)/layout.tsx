@@ -23,6 +23,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
               <Link href="/painel/agente">Agente de IA</Link>
               <Link href="/painel/conexoes">Conexões</Link>
               <Link href="/painel/configuracoes">Configurações</Link>
+              <Link href="/painel/depoimentos">Depoimentos</Link>
               <Link href="/painel/equipe">Equipe</Link>
             </>
           ) : null}

@@ -49,7 +49,7 @@ Envio de mensagens pela UAZAPI (código / avisos / resposta pelo painel),whatsap
 Login do painel com papéis vendedor / gestor,painel,must,no,yes,vendedor vê só os seus leads; login e proteção prontos; falta criar usuários
 Inbox de conversas com filtros e resposta pelo painel,painel,must,no,yes,lista pronta; falta responder pelo painel; lista + ficha com resposta; sem tempo real
 Ficha única do lead (conversa / simulações / documentos / timeline),painel,must,no,yes,
-Funil kanban com etapas fixas e motivo de perda obrigatório,painel,must,no,partial,colunas e mover por seletor; sem arrastar e soltar
+Funil kanban com etapas fixas e motivo de perda obrigatório,painel,must,no,yes,arrastar e soltar + seletor por teclado
 IA classifica etapa / temperatura / resumo / próximo passo,painel,must,no,yes,Claude Haiku; correção humana vence; Haiku; decisão humana vence
 Dashboard por canal / campanha / vendedor / etapa,painel,must,no,yes,
 Tempo de primeira resposta e conversão por vendedor,painel,must,no,yes,
@@ -63,19 +63,19 @@ Página de parceiros,conteúdo,must,yes,no,clone: bancos/instituições parceira
 Página de portabilidade / refinanciamento,seo,must,no,yes,base pronta; falta conteúdo
 Comparativo Price x SAC e CET estimado,simulador,must,no,yes,sem CET
 Simulador modo compra (entrada / renda / idade),simulador,must,no,partial,só o limite de 80%; sem entrada/renda/idade
-Prova social: avaliações Google e depoimentos,confiança,must,no,no,só reais e autorizados; sem depoimentos reais ainda
+Prova social: avaliações Google e depoimentos,confiança,must,no,partial,seção e cadastro prontos; a seção só aparece com depoimento real autorizado e publicado
 Números de autoridade (operações / volume / anos),confiança,must,no,partial,"desde 2015 (CNPJ); demais só se verificáveis; ""desde 2015"" e 9 estados"
 Página Sobre com equipe e CNPJ (E-E-A-T),confiança,must,no,yes,
 Blog com artigos,seo,must,no,yes,4 artigos em rascunho para revisão
-Simulador embutido nos artigos,seo,must,no,partial,link para o simulador
+Simulador embutido nos artigos,seo,must,no,partial,botão para o simulador
 Página de contato com mapa / Google Business,seo,must,no,yes,
-Agendamento de ligação com consultor,conversão,must,no,no,Cal.com ou similar
+Agendamento de ligação com consultor,conversão,must,no,partial,"campo ""melhor horário"" no formulário; sem agenda de horários"
 Página 404 com CTA,layout,must,no,yes,
-Importação automática do gasto via API do Google Ads / Meta,rastreamento,must,no,no,senão digitar o gasto no painel; lançamento manual no painel
+Importação automática do gasto via API do Google Ads / Meta,rastreamento,must,no,partial,Meta e Google escritos; precisam das credenciais para testar
 Páginas por cidade (SEO local),seo,could,no,no,só com conteúdo real por cidade; revisar após a entrega
-Retomar simulação salva (link / e-mail),simulador,must,no,no,
+Retomar simulação salva (link / e-mail),simulador,must,no,yes,"guarda neste aparelho e oferece ""retomar"""
 Agente de IA no WhatsApp: atendimento inicial e qualificação,conversão,must,no,yes,desligado por padrão; liga por número e geral
-Calculadora de capacidade (quanto posso financiar pela renda),simulador,must,no,no,
+Calculadora de capacidade (quanto posso financiar pela renda),simulador,must,no,yes,na página de financiamento; 30% da renda
 Materiais gratuitos (guia PDF) para captar e-mail,conteúdo,could,no,no,revisar após a entrega
 Sequência de e-mail / WhatsApp de nutrição,crm,could,no,no,revisar após a entrega
 Teste A/B de hero e CTA,conversão,could,no,no,revisar após a entrega

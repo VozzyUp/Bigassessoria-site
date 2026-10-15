@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { CONFIG_PADRAO, simular, type EntradaSimulacao } from './index'
+import { CONFIG_PADRAO, capacidadeDeCredito, simular, type EntradaSimulacao } from './index'
 
 const base: EntradaSimulacao = {
   produto: 'home_equity',
@@ -66,5 +66,23 @@ describe('simular', () => {
 
   it('LTV calculado é crédito / imóvel', () => {
     expect(simular(base).ltv).toBeCloseTo(0.5, 6)
+  })
+})
+
+describe('capacidadeDeCredito', () => {
+  it('parcela máxima de 30% da renda e crédito que ela paga no Price', () => {
+    const r = capacidadeDeCredito({ rendaMensalCentavos: 2_000_000, taxaMensal: 0.0119, prazoMeses: 240 })
+    expect(r.parcelaMaximaCentavos).toBe(600_000)
+    // volta ao mesmo valor pela conta direta do simulador
+    const volta = simular({ produto: 'financiamento', valorImovelCentavos: 100_000_000, valorCreditoCentavos: r.creditoCentavos, taxaMensal: 0.0119, prazoMeses: 240, carenciaDias: 30, sistema: 'price' })
+    expect(Math.abs(volta.parcelaCentavos - 600_000)).toBeLessThanOrEqual(5)
+  })
+  it('respeita o limite do imóvel (80%) quando informado', () => {
+    const r = capacidadeDeCredito({ rendaMensalCentavos: 5_000_000, taxaMensal: 0.0119, prazoMeses: 240, valorImovelCentavos: 30_000_000 })
+    expect(r.creditoCentavos).toBe(24_000_000)
+    expect(r.limitadoPeloImovel).toBe(true)
+  })
+  it('renda zero não gera NaN', () => {
+    expect(capacidadeDeCredito({ rendaMensalCentavos: 0, taxaMensal: 0.0119, prazoMeses: 240 }).creditoCentavos).toBe(0)
   })
 })

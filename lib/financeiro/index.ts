@@ -108,3 +108,29 @@ export function simular(e: EntradaSimulacao, cfg: ConfigSimulador = CONFIG_PADRA
 const brl = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' })
 export const formatarBRL = (centavos: number) => brl.format(centavos / 100)
 export const formatarPercentual = (v: number, casas = 2) => (v * 100).toFixed(casas).replace('.', ',') + '%'
+
+/**
+ * Quanto de crédito cabe na renda: a parcela máxima é uma fatia da renda (30% por padrão, regra comum dos bancos)
+ * e o valor é o que essa parcela paga no Price. O resultado respeita o limite em relação ao valor do imóvel, se informado.
+ */
+export function capacidadeDeCredito(
+  p: { rendaMensalCentavos: number; taxaMensal: number; prazoMeses: number; comprometimento?: number; produto?: Produto; valorImovelCentavos?: number },
+  cfg: ConfigSimulador = CONFIG_PADRAO,
+): { parcelaMaximaCentavos: number; creditoCentavos: number; limitadoPeloImovel: boolean } {
+  const frac = p.comprometimento ?? 0.3
+  if (!(p.rendaMensalCentavos > 0) || !(p.taxaMensal > 0) || !(p.prazoMeses > 0)) return { parcelaMaximaCentavos: 0, creditoCentavos: 0, limitadoPeloImovel: false }
+  const pmt = (p.rendaMensalCentavos / 100) * frac
+  const i = p.taxaMensal
+  const pv = (pmt * (1 - Math.pow(1 + i, -p.prazoMeses))) / i
+  let credito = Math.round(pv * 100)
+  let limitado = false
+  if (p.valorImovelCentavos && p.valorImovelCentavos > 0) {
+    const teto = Math.round(p.valorImovelCentavos * ltvMaximo(p.produto ?? 'financiamento', cfg))
+    if (credito > teto) {
+      credito = teto
+      limitado = true
+    }
+  }
+  credito = Math.min(credito, cfg.credito_max_centavos)
+  return { parcelaMaximaCentavos: Math.round(pmt * 100), creditoCentavos: credito, limitadoPeloImovel: limitado }
+}

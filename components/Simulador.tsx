@@ -1,12 +1,22 @@
 'use client'
 
-import { useId, useMemo, useState } from 'react'
+import { useEffect, useId, useMemo, useState, useSyncExternalStore } from 'react'
 import { useRouter } from 'next/navigation'
 import { CONFIG_PADRAO, formatarBRL, formatarPercentual, simular, type ConfigSimulador, type Produto, type Sistema } from '@/lib/financeiro'
 import { coletarAtribuicao } from '@/lib/atribuicao/cliente'
 import { paraE164 } from '@/lib/telefone'
 import { evento, lerEscolha } from '@/lib/medicao/consentimento'
 import { Icone } from './Icone'
+
+const CHAVE_SALVA = 'big_sim'
+const semAssinatura = () => () => {}
+function lerSalva(): string | null {
+  try {
+    return localStorage.getItem(CHAVE_SALVA)
+  } catch {
+    return null
+  }
+}
 
 const UFS = ['MG', 'SP', 'MS', 'MT', 'PR', 'SC', 'RS', 'RJ', 'ES']
 type ProdutoSim = Extract<Produto, 'home_equity' | 'financiamento'>
@@ -85,6 +95,8 @@ export function Simulador({ produtoInicial = 'home_equity', config = CONFIG_PADR
   const [situacao, setSituacao] = useState('')
   const [finalidade, setFinalidade] = useState('')
   const [urgencia, setUrgencia] = useState('')
+  const [horario, setHorario] = useState('')
+  const [retomada, setRetomada] = useState(false)
   const [consent, setConsent] = useState(false)
   const [marketing, setMarketing] = useState(false)
   const [enviando, setEnviando] = useState(false)
@@ -98,6 +110,33 @@ export function Simulador({ produtoInicial = 'home_equity', config = CONFIG_PADR
       ),
     [produto, imovel, credito, taxa, prazo, carencia, sistema, cfg],
   )
+  const salva = useSyncExternalStore(semAssinatura, lerSalva, () => null)
+
+  // guarda a simulação neste aparelho para o visitante retomar depois
+  useEffect(() => {
+    try {
+      localStorage.setItem(CHAVE_SALVA, JSON.stringify({ produto, imovel, credito, sistema, taxa, prazo, carencia }))
+    } catch {
+      // sem storage: só não retoma
+    }
+  }, [produto, imovel, credito, sistema, taxa, prazo, carencia])
+
+  function retomar() {
+    try {
+      const s = JSON.parse(salva ?? 'null') as { produto: ProdutoSim; imovel: number; credito: number; sistema: Sistema; taxa: number; prazo: number; carencia: number } | null
+      if (!s) return
+      setProduto(s.produto)
+      setImovel(s.imovel)
+      setCredito(s.credito)
+      setSistema(s.sistema)
+      setTaxa(s.taxa)
+      setPrazo(s.prazo)
+      setCarencia(s.carencia)
+    } catch {
+      // dado salvo corrompido: ignora
+    }
+    setRetomada(true)
+  }
   const invalido = r.erros.length > 0
   const erroCredito = r.erros.some((x) => x.startsWith('credito'))
   const ehPrice = sistema === 'price'
@@ -126,6 +165,7 @@ export function Simulador({ produtoInicial = 'home_equity', config = CONFIG_PADR
           situacaoImovel: situacao || undefined,
           finalidade: finalidade || undefined,
           urgencia: urgencia || undefined,
+          melhorHorario: horario || undefined,
           simulacao: {
             produto,
             valorImovelCentavos: imovel * 100,
@@ -160,6 +200,11 @@ export function Simulador({ produtoInicial = 'home_equity', config = CONFIG_PADR
   return (
     <form className="sim" id="simulador" aria-labelledby="sim-t" noValidate onSubmit={enviar}>
       <h2 id="sim-t">Simule em 30 segundos</h2>
+      {salva && !retomada ? (
+        <p className="hint" style={{ marginTop: 6 }}>
+          <button type="button" className="btn btn-ghost btn-sm" onClick={retomar} style={{ color: 'var(--accent)', padding: 0, minHeight: 0 }}>Retomar a minha última simulação</button>
+        </p>
+      ) : null}
 
       <div className="tabs" role="tablist" aria-label="Produto">
         <button type="button" role="tab" aria-selected={produto === 'home_equity'} onClick={() => setProduto('home_equity')}>Garantia de imóvel</button>
@@ -296,6 +341,17 @@ export function Simulador({ produtoInicial = 'home_equity', config = CONFIG_PADR
                   <option value="planejando">Ainda estou planejando</option>
                 </select>
               </div>
+            </div>
+          </div>
+          <div className="field">
+            <label htmlFor="c-hor">Melhor horário para falarmos</label>
+            <div className="money">
+              <select id="c-hor" value={horario} onChange={(e) => setHorario(e.target.value)}>
+                <option value="">Qualquer horário comercial</option>
+                <option value="manha">Manhã (8h às 12h)</option>
+                <option value="tarde">Tarde (12h às 18h)</option>
+                <option value="noite">Noite (depois das 18h)</option>
+              </select>
             </div>
           </div>
           <div className="field">

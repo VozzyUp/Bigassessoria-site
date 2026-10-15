@@ -6,6 +6,8 @@ import { TrustBar, Caminhos, ComoFunciona } from './SecoesHome'
 import { Icone } from './Icone'
 import { Faq } from './Faq'
 import { lerConfigSimulador } from '@/lib/config'
+import { CalculadoraRenda } from './CalculadoraRenda'
+import { Depoimentos } from './Depoimentos'
 
 export interface DadosProduto {
   rota: string
@@ -14,6 +16,7 @@ export interface DadosProduto {
   lead: string
   beneficios: string[]
   produto: 'home_equity' | 'financiamento'
+  calculadora?: boolean
 }
 
 export async function ProdutoPage({ d }: { d: DadosProduto }) {
@@ -42,6 +45,8 @@ export async function ProdutoPage({ d }: { d: DadosProduto }) {
           </div>
         </section>
         <TrustBar />
+        <Depoimentos />
+        {d.calculadora ? <CalculadoraRenda config={config} /> : null}
         <Caminhos />
         <ComoFunciona />
         <Faq />

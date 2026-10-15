@@ -17,6 +17,7 @@ export default function Page() {
       d={{
         rota: '/financiamento-imobiliario',
         produto: 'financiamento',
+        calculadora: true,
         eyebrow: 'Financiamento imobiliário',
         titulo: <>Compre o seu imóvel <em>com a melhor proposta entre os bancos.</em></>,
         lead: 'Financiamento de até 80% do valor do imóvel. A Big compara as condições dos bancos parceiros e conduz o processo, da análise ao registro.',

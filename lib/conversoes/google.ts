@@ -4,7 +4,7 @@ export class ErroGoogle extends Error {}
 
 let tokenCache: { valor: string; expira: number } | null = null
 
-async function tokenDeAcesso(): Promise<string> {
+export async function tokenDeAcessoGoogle(): Promise<string> {
   if (tokenCache && tokenCache.expira > Date.now() + 60_000) return tokenCache.valor
   const id = process.env.GOOGLE_ADS_CLIENT_ID
   const segredo = process.env.GOOGLE_ADS_CLIENT_SECRET
@@ -49,7 +49,7 @@ export async function enviarGoogle(c: Conversao, lead: LeadParaConversao): Promi
   const dev = process.env.GOOGLE_ADS_DEVELOPER_TOKEN
   const cliente = (process.env.GOOGLE_ADS_CUSTOMER_ID ?? '').replace(/\D/g, '')
   if (!dev || !cliente) throw new ErroGoogle('GOOGLE_ADS_DEVELOPER_TOKEN/GOOGLE_ADS_CUSTOMER_ID não configurados')
-  const token = await tokenDeAcesso()
+  const token = await tokenDeAcessoGoogle()
 
   const conv: Record<string, unknown> = {
     conversionAction: acao,

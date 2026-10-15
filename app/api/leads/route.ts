@@ -19,6 +19,7 @@ const corpo = z.object({
   finalidade: z.string().max(60).optional(),
   urgencia: z.enum(['30d', '1-3m', '3-6m', 'planejando']).optional(),
   situacaoImovel: z.enum(['quitado', 'financiado']).optional(),
+  melhorHorario: z.enum(['manha', 'tarde', 'noite']).optional(),
   simulacao: z.object({
     produto: z.enum(['home_equity', 'financiamento', 'portabilidade']),
     valorImovelCentavos: z.number().int().positive(),
@@ -84,6 +85,7 @@ export async function POST(req: Request) {
       email: d.email || null,
       uf: uf ?? null,
       cidade: d.cidade ?? null,
+      melhor_horario: d.melhorHorario ?? null,
       fora_regiao: foraRegiao,
       produto: s.produto,
       usuario_id: vendedorId,

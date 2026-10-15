@@ -86,3 +86,24 @@ export async function revisarDocumento(leadId: string, itemId: string, aprovado:
   revalidatePath('/painel/leads/' + leadId)
   return { ok: true, mensagem: aprovado ? 'Documento aprovado.' : 'Documento recusado e cliente avisado.' }
 }
+
+const ETAPAS_VALIDAS = ['novo', 'em_atendimento', 'qualificado', 'documentacao', 'analise', 'proposta', 'contrato', 'liberado', 'perdido']
+const MOTIVOS_VALIDOS = ['taxa', 'desistencia', 'reprovacao', 'sem_retorno', 'fora_regiao', 'sem_garantia', 'outro']
+
+/** Move o lead de etapa (arrastar e soltar ou seletor). Roda como o usuário logado, então o RLS decide. A mudança manual trava a IA. */
+export async function moverEtapaDireto(leadId: string, etapa: string, motivo: string): Promise<{ ok: boolean; mensagem: string }> {
+  const uid = await autorizar(leadId)
+  if (!uid) return { ok: false, mensagem: 'Sem permissão para este contato.' }
+  if (!ETAPAS_VALIDAS.includes(etapa)) return { ok: false, mensagem: 'Etapa inválida.' }
+  const patch: Record<string, unknown> = { etapa, etapa_travada_humano: true, motivo_perda: null }
+  if (etapa === 'perdido') {
+    if (!MOTIVOS_VALIDOS.includes(motivo)) return { ok: false, mensagem: 'Escolha o motivo da perda.' }
+    patch.motivo_perda = motivo
+  }
+  const supabase = await supabaseDoUsuario()
+  const { error } = await supabase.from('leads').update(patch).eq('id', leadId)
+  if (error) return { ok: false, mensagem: 'Não foi possível mover o contato.' }
+  revalidatePath('/painel/funil')
+  revalidatePath('/painel/leads/' + leadId)
+  return { ok: true, mensagem: 'Movido.' }
+}

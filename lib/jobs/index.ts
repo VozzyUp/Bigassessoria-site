@@ -1,6 +1,7 @@
 import 'server-only'
 import { enviarConversoesPendentes } from '@/lib/conversoes/enviar'
 import { verificarAlertas } from './alertas'
+import { importarGastos } from '@/lib/gastos/importar'
 import { admin } from '@/lib/supabase/admin'
 
 const g = globalThis as unknown as { __bigJobs?: boolean }
@@ -31,4 +32,6 @@ export function iniciarJobs() {
   setInterval(() => void executar('conversoes', () => enviarConversoesPendentes()), minutos(2))
   setInterval(() => void executar('alertas', verificarAlertas), minutos(5))
   setInterval(() => void executar('codigos', limparCodigos), minutos(60))
+  // gasto de anúncios: a cada 6 horas (só faz algo se as credenciais da Meta/Google estiverem configuradas)
+  setInterval(() => void executar('gastos', importarGastos), minutos(360))
 }
