@@ -10,6 +10,9 @@
 | S14 simulador | 2026-10-14 | parcial | SAC/Price comparativo completo, modo compra com entrada e renda, retomar simulação | grid com input estourando o card (corrigido) |
 | S16 obrigado | 2026-10-14 | parcial | disparo da conversão (GA4/Ads/Meta) | — |
 | S25 login | 2026-10-14 | parcial | usuários do painel (depende do e-mail dos vendedores) | — |
+| S28/S29 ficha e funil | 2026-10-15 | parcial | arrastar e soltar, tempo real, editar dados; nada testado com usuário logado (precisa criar usuários) | RLS faz o vendedor ver só os leads dele |
+| medição | 2026-10-15 | parcial | criar o container no GTM e as tags (GA4, Google Ads, Meta); CAPI e Google Ads API ainda não | banner testado: recusar grava a escolha e some |
+| S22 FAQ + JSON-LD | 2026-10-15 | feito | revisar as respostas com o cliente | — |
 | S27 inbox | 2026-10-14 | parcial | tela da conversa, responder pelo painel, tempo real | — |
 | S33 /w/[canal] | 2026-10-14 | feito | testar de ponta a ponta com a service role | — |
 | webhook UAZAPI | 2026-10-14 | parcial | conferir formato real na documentação da instância; teste com número real | formato do payload é a maior incerteza |
