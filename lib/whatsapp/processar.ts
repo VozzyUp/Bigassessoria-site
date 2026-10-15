@@ -2,6 +2,9 @@ import 'server-only'
 import { admin } from '@/lib/supabase/admin'
 import { paraE164, variantes } from '@/lib/telefone'
 import type { MensagemEntrada } from './uazapi'
+import { agendar } from '@/lib/agente/fila'
+import { responderConversa } from '@/lib/agente/executar'
+import { classificarLead } from '@/lib/agente/classificar'
 
 export type Resultado =
   | { ok: true; acao: 'gravada'; leadId: string; conversaId: string }
@@ -112,6 +115,12 @@ export async function processarMensagem(instanciaNome: string, m: MensagemEntrad
   const leadPatch: Record<string, unknown> = { ultimo_contato_em: quando }
   if (m.fromMe && lead.etapa === 'novo') leadPatch.etapa = 'em_atendimento'
   await db.from('leads').update(leadPatch).eq('id', lead.id)
+
+  // agente de IA: junta mensagens em sequência (8 s) e responde; classificação do lead com debounce de 60 s
+  const conversaId = conversa.id as string
+  const leadId = lead.id as string
+  if (!m.fromMe) agendar('agente:' + conversaId, 8_000, () => responderConversa(conversaId, Date.now()))
+  agendar('classificar:' + leadId, 60_000, () => classificarLead(leadId))
 
   return { ok: true, acao: 'gravada', leadId: lead.id, conversaId: conversa.id }
 }

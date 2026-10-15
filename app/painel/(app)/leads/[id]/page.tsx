@@ -4,6 +4,7 @@ import { supabaseDoUsuario } from '@/lib/supabase/server'
 import { NOME_ETAPA } from '@/lib/funil'
 import { formatarBRL, formatarPercentual } from '@/lib/financeiro'
 import { mascarar } from '@/lib/telefone'
+import { Documentos, Responder, type ItemDoc } from './AcoesLead'
 
 export const dynamic = 'force-dynamic'
 
@@ -38,8 +39,19 @@ export default async function Lead({ params }: { params: Promise<{ id: string }>
       .order('created_at', { ascending: false })
       .limit(5),
     supabase.from('etapa_historico').select('id, de, para, por, created_at').eq('lead_id', id).order('created_at', { ascending: false }).limit(20),
-    supabase.from('conversas').select('id').eq('lead_id', id),
+    supabase.from('conversas').select('id, agente_ativo').eq('lead_id', id),
   ])
+  const [{ data: docs }, { data: codigos }] = await Promise.all([
+    supabase.from('documento_itens').select('id, status, motivo_rejeicao, arquivos, documento_tipos(nome, ordem)').eq('lead_id', id),
+    supabase.from('codigos_acesso').select('id').eq('lead_id', id).is('usado_em', null).is('revogado_em', null).gt('expira_em', new Date().toISOString()),
+  ])
+  type Tp = { nome: string; ordem: number } | null
+  const itensDoc: (ItemDoc & { ordem: number })[] = (docs ?? [])
+    .map((d) => {
+      const tp = (Array.isArray(d.documento_tipos) ? d.documento_tipos[0] : d.documento_tipos) as Tp
+      return { id: d.id as string, nome: tp?.nome ?? 'Documento', ordem: tp?.ordem ?? 99, status: d.status as ItemDoc['status'], motivo: d.motivo_rejeicao as string | null, arquivos: (d.arquivos ?? []).length }
+    })
+    .sort((a, b) => a.ordem - b.ordem)
   const ids = (conversas ?? []).map((c) => c.id)
   const { data: msgs } = ids.length
     ? await supabase
@@ -112,7 +124,9 @@ export default async function Lead({ params }: { params: Promise<{ id: string }>
         </section>
       </div>
 
-      <section className="cartao" aria-labelledby="conv-t">
+      <Documentos leadId={lead.id} itens={itensDoc} codigoAtivo={(codigos ?? []).length > 0} />
+
+      <section className="cartao" aria-labelledby="conv-t" style={{ marginTop: 12 }}>
         <h2 id="conv-t">Conversa</h2>
         {!msgs?.length ? (
           <p className="vazio">Nenhuma mensagem ainda. Quando o cliente falar no WhatsApp, aparece aqui.</p>
@@ -127,6 +141,7 @@ export default async function Lead({ params }: { params: Promise<{ id: string }>
             ))}
           </div>
         )}
+        {conversas?.[0] ? <Responder conversaId={conversas[0].id} agenteAtivo={!!conversas[0].agente_ativo} /> : null}
       </section>
     </main>
   )
