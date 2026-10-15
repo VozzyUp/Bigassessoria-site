@@ -13,6 +13,7 @@ const corpo = z.object({
   email: z.string().trim().email().max(160).optional().or(z.literal('')),
   consentimento: z.literal(true),
   marketing: z.boolean().optional(),
+  consentimentoAnuncios: z.boolean().optional(),
   uf: z.string().length(2).optional(),
   cidade: z.string().max(120).optional(),
   simulacao: z.object({
@@ -92,6 +93,7 @@ export async function POST(req: Request) {
       ultimo_toque: ultimoToque,
       consentimento_lgpd_em: agora,
       consentimento_marketing: d.marketing ?? false,
+      consentimento_anuncios: d.consentimentoAnuncios ?? false,
       ultimo_contato_em: agora,
     }
 
@@ -109,6 +111,12 @@ export async function POST(req: Request) {
       if (error) throw error
       leadId = data.id
     }
+
+    // Conversão "Lead" para o Google e a Meta (o job envia só se houver consentimento para anúncios)
+    await db.from('conversoes_enviadas').upsert(
+      ['google_ads', 'meta'].map((plataforma) => ({ lead_id: leadId, plataforma, evento: 'Lead', event_id: leadId + ':Lead' })),
+      { onConflict: 'lead_id,plataforma,evento', ignoreDuplicates: true },
+    )
 
     const { error: errSim } = await db.from('simulacoes').insert({
       lead_id: leadId,

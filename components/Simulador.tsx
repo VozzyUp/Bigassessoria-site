@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { CONFIG_PADRAO, formatarBRL, formatarPercentual, simular, type Produto, type Sistema } from '@/lib/financeiro'
 import { coletarAtribuicao } from '@/lib/atribuicao/cliente'
 import { paraE164 } from '@/lib/telefone'
-import { evento } from '@/lib/medicao/consentimento'
+import { evento, lerEscolha } from '@/lib/medicao/consentimento'
 import { Icone } from './Icone'
 
 const UFS = ['MG', 'SP', 'MS', 'MT', 'PR', 'SC', 'RS', 'RJ', 'ES']
@@ -116,6 +116,7 @@ export function Simulador({ produtoInicial = 'home_equity' }: { produtoInicial?:
           email: email.trim(),
           consentimento: true,
           marketing,
+          consentimentoAnuncios: !!lerEscolha()?.marketing,
           uf: uf === 'OUTRO' ? 'XX' : uf,
           simulacao: {
             produto,
