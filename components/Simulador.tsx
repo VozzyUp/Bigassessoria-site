@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { CONFIG_PADRAO, formatarBRL, formatarPercentual, simular, type Produto, type Sistema } from '@/lib/financeiro'
 import { coletarAtribuicao } from '@/lib/atribuicao/cliente'
 import { paraE164 } from '@/lib/telefone'
+import { evento } from '@/lib/medicao/consentimento'
 import { Icone } from './Icone'
 
 const UFS = ['MG', 'SP', 'MS', 'MT', 'PR', 'SC', 'RS', 'RJ', 'ES']
@@ -134,6 +135,7 @@ export function Simulador({ produtoInicial = 'home_equity' }: { produtoInicial?:
         if (j.erro === 'whatsapp_invalido') throw new Error('Confira o WhatsApp informado.')
         throw new Error('Não conseguimos enviar agora. Tente de novo em instantes ou chame a gente no WhatsApp.')
       }
+      evento('generate_lead', { event_id: j.leadId + ':Lead', produto, valor_credito: credito, fora_regiao: !!j.foraRegiao })
       try {
         sessionStorage.setItem('big_wa', JSON.stringify({ url: j.whatsappUrl, fora: j.foraRegiao, nome: nome.trim().split(' ')[0] }))
       } catch {
@@ -215,7 +217,10 @@ export function Simulador({ produtoInicial = 'home_equity' }: { produtoInicial?:
       </div>
 
       {!abrirContato ? (
-        <button type="button" className="btn btn-primary btn-lg" disabled={invalido} onClick={() => setAbrirContato(true)}>
+        <button type="button" className="btn btn-primary btn-lg" disabled={invalido} onClick={() => {
+            evento('simulacao_concluida', { produto, valor_credito: credito, prazo_meses: prazo, sistema })
+            setAbrirContato(true)
+          }}>
           Quero essa simulação com os bancos
         </button>
       ) : (

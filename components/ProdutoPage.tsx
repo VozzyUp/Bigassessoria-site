@@ -4,6 +4,7 @@ import { WhatsAppFab } from './WhatsAppFab'
 import { Simulador } from './Simulador'
 import { TrustBar, Caminhos, ComoFunciona } from './SecoesHome'
 import { Icone } from './Icone'
+import { Faq } from './Faq'
 
 export interface DadosProduto {
   rota: string
@@ -41,6 +42,7 @@ export function ProdutoPage({ d }: { d: DadosProduto }) {
         <TrustBar />
         <Caminhos />
         <ComoFunciona />
+        <Faq />
       </main>
       <Footer />
       <WhatsAppFab />

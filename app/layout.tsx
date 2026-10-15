@@ -1,6 +1,9 @@
 import type { Metadata, Viewport } from 'next'
 import { Inter, Plus_Jakarta_Sans } from 'next/font/google'
 import './globals.css'
+import { Gtm } from '@/components/medicao/Gtm'
+import { CookieBanner } from '@/components/medicao/CookieBanner'
+import { Organizacao } from '@/components/Organizacao'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' })
 const jakarta = Plus_Jakarta_Sans({ subsets: ['latin'], weight: ['600', '700', '800'], style: ['normal', 'italic'], variable: '--font-jakarta', display: 'swap' })
@@ -18,7 +21,12 @@ export const viewport: Viewport = { width: 'device-width', initialScale: 1, view
 export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
     <html lang="pt-BR" className={`${inter.variable} ${jakarta.variable}`}>
-      <body>{children}</body>
+      <body>
+        <Gtm />
+        {children}
+        <CookieBanner />
+        <Organizacao />
+      </body>
     </html>
   )
 }
