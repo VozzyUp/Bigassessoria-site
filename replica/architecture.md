@@ -26,7 +26,7 @@ Princípios: um repositório, um banco, um deploy. Nada de microsserviços. Serv
 | cidades | **API de localidades do IBGE**, baixada no build para um JSON estático das 9 UFs | sem dependência em tempo real |
 | anti-bot / rate limit | **Cloudflare Turnstile** + **Upstash Redis** | lead falso estraga a otimização dos anúncios |
 | observabilidade | **Sentry** (erros) + **Vercel Analytics / Speed Insights** | saber quando o webhook ou o agente falham |
-| hosting | **Vercel** (Pro) | Next.js com ISR e crons sem configuração; domínio `bigassessoria.com.br` (a confirmar) |
+| hosting | **VPS do cliente via Portainer** (imagem Docker, build standalone; ver `Dockerfile` e `docker-compose.yml`) | decisão do cliente; mesmo fluxo dos outros projetos. ISR e crons de plataforma não existem aí: jobs passam pelo Inngest |
 
 Hospedagem alternativa: Hostinger Node.js. Funciona, mas perde o ISR fácil, e o histórico de deploy de
 Next/Nitro lá tem armadilhas (tipo de app e entry file, dependências fora do trace). Vercel é o padrão
